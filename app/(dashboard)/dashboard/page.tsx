@@ -41,7 +41,7 @@ export default async function DashboardPage() {
         <div>
           <h1 className="heading-lg">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back, {session.user.name || "Calendar Enthusiast"}. Let's judge your schedule.
+            Welcome back, {session.user.name || "Calendar Enthusiast"}. Let&apos;s judge your schedule.
           </p>
         </div>
         

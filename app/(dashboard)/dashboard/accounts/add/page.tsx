@@ -66,7 +66,7 @@ export default async function AddAccountPage() {
             <Calendar className="h-5 w-5 shrink-0 mt-1" />
             <div>
               <strong>View all your calendars in one place</strong>
-              <p className="text-sm">After connecting, we'll sync your events and display them in your QuickCal dashboard.</p>
+              <p className="text-sm">After connecting, we&apos;ll sync your events and display them in your QuickCal dashboard.</p>
             </div>
           </div>
           
@@ -74,7 +74,7 @@ export default async function AddAccountPage() {
             <Shield className="h-5 w-5 shrink-0 mt-1" />
             <div>
               <strong>Privacy & Permissions</strong>
-              <p className="text-sm">QuickCal only reads your calendar data. We'll never modify or delete your events without explicit permission.</p>
+              <p className="text-sm">QuickCal only reads your calendar data. We&apos;ll never modify or delete your events without explicit permission.</p>
             </div>
           </div>
           
@@ -82,7 +82,7 @@ export default async function AddAccountPage() {
             <AlertCircle className="h-5 w-5 shrink-0 mt-1" />
             <div>
               <strong>Google OAuth Permission</strong>
-              <p className="text-sm">You'll be redirected to Google to grant QuickCal access to your calendar. You can revoke this access anytime.</p>
+              <p className="text-sm">You&apos;ll be redirected to Google to grant QuickCal access to your calendar. You can revoke this access anytime.</p>
             </div>
           </div>
         </div>

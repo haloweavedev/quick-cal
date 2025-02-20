@@ -152,7 +152,7 @@ export default async function AccountsPage({
           <Calendar className="h-16 w-16 mx-auto mb-4 opacity-40" />
           <h3 className="heading-md mb-4">No Connected Calendars</h3>
           <p className="max-w-md mx-auto mb-6">
-            Connect your Google Calendar to start syncing events and accessing QuickCal's features.
+            Connect your Google Calendar to start syncing events and accessing QuickCal&apos;s features.
           </p>
           <Link href="/dashboard/accounts/add" className="brutalist-button inline-block">
             Connect Google Calendar

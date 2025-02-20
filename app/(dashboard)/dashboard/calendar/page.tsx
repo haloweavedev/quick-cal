@@ -175,12 +175,12 @@ export default async function CalendarPage({
         <div className="brutalist-box bg-[#f4f4f4]">
           <h3 className="heading-sm mb-4">Your Calendar is Empty</h3>
           <p className="mb-4">
-            We've connected to your calendar, but it seems you have no events. Either you're:
+            We&apos;ve connected to your calendar, but it seems you have no events. Either you&apos;re:
           </p>
           <ul className="space-y-2 mb-6">
             <li className="flex gap-2 items-start">
               <span className="font-bold">1.</span>
-              <p>Incredibly efficient and don't need meetings (unlikely)</p>
+              <p>Incredibly efficient and don&apos;t need meetings (unlikely)</p>
             </li>
             <li className="flex gap-2 items-start">
               <span className="font-bold">2.</span>
@@ -188,7 +188,7 @@ export default async function CalendarPage({
             </li>
             <li className="flex gap-2 items-start">
               <span className="font-bold">3.</span>
-              <p>Using another calendar we haven't connected yet (easily fixable)</p>
+              <p>Using another calendar we haven&apos;t connected yet (easily fixable)</p>
             </li>
           </ul>
           <div className="flex justify-center">

@@ -27,13 +27,13 @@ export default async function WelcomePage() {
         </div>
         <h1 className="heading-lg mb-2">Welcome to QuickCal!</h1>
         <p className="text-lead max-w-lg mx-auto">
-          Let's set up your account and connect your primary Google Calendar.
+          Let&apos;s set up your account and connect your primary Google Calendar.
         </p>
       </div>
       
       <div className="space-y-6 mb-8">
         <div className="brutalist-box bg-[#f4f4f4]">
-          <h2 className="heading-sm mb-4">Here's what we'll do:</h2>
+          <h2 className="heading-sm mb-4">Here&apos;s what we&apos;ll do:</h2>
           <ul className="space-y-4">
             <li className="flex items-start gap-3">
               <div className="w-6 h-6 bg-black text-white rounded-full flex items-center justify-center shrink-0 mt-0.5">
@@ -50,7 +50,7 @@ export default async function WelcomePage() {
               </div>
               <div>
                 <p className="font-bold">Sync your events</p>
-                <p className="text-sm">We'll pull in your existing calendar events so you can see them right away.</p>
+                <p className="text-sm">We&apos;ll pull in your existing calendar events so you can see them right away.</p>
               </div>
             </li>
             <li className="flex items-start gap-3">
@@ -68,7 +68,7 @@ export default async function WelcomePage() {
         <div className="brutalist-box border-2 border-dashed">
           <h2 className="heading-sm mb-2">What permissions we need:</h2>
           <p className="mb-4 text-sm">
-            QuickCal needs read access to your Google Calendar to provide our services. We'll never:
+            QuickCal needs read access to your Google Calendar to provide our services. We&apos;ll never:
           </p>
           <ul className="space-y-1 text-sm">
             <li className="flex gap-2">

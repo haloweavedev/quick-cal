@@ -35,7 +35,7 @@ export default async function Home() {
               QuickCal: Because Your Calendar Needed an <span className="brutalist-highlight">Attitude Adjustment</span>
             </h1>
             <p className="text-lead mb-8">
-              Oh great, <em>another</em> calendar app. But wait! This one's got AI, sarcasm, and
+              Oh great, <em>another</em> calendar app. But wait! This one&apos;s got AI, sarcasm, and
               absolutely zero sympathy for your poor time management skills.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -56,35 +56,35 @@ export default async function Home() {
         </section>
         
         <section id="features" className="py-16 container mx-auto px-4">
-          <h2 className="heading-lg text-center mb-12">Features That Will Change Your Life™</h2>
+          <h2 className="heading-lg text-center mb-12">Features That Will Change Your Life&#8482;</h2>
           
           <div className="brutalist-grid">
             <div className="brutalist-card">
               <Clock className="h-10 w-10 mb-4" />
               <h3 className="heading-sm mb-3">Smart Scheduling</h3>
-              <p className="mb-3">AI-powered scheduling that's probably just as confused as you are about your availability.</p>
-              <p className="text-sm italic">"It scheduled my therapy right after my ex's wedding. How thoughtful!" - A User</p>
+              <p className="mb-3">AI-powered scheduling that&apos;s probably just as confused as you are about your availability.</p>
+              <p className="text-sm italic">&quot;It scheduled my therapy right after my ex&apos;s wedding. How thoughtful!&quot; - A User</p>
             </div>
             
             <div className="brutalist-card">
               <Brain className="h-10 w-10 mb-4" />
               <h3 className="heading-sm mb-3">Meeting Insights</h3>
               <p className="mb-3">Get AI summaries of your meetings that include what was actually said and what everyone was really thinking.</p>
-              <p className="text-sm italic">"Now I know who's secretly plotting my downfall!" - Paranoid Manager</p>
+              <p className="text-sm italic">&quot;Now I know who&apos;s secretly plotting my downfall!&quot; - Paranoid Manager</p>
             </div>
             
             <div className="brutalist-card">
               <AlarmClock className="h-10 w-10 mb-4" />
               <h3 className="heading-sm mb-3">Brutal Reminders</h3>
-              <p className="mb-3">Get reminders that don't sugarcoat how late you are or how unprepared you'll be.</p>
-              <p className="text-sm italic">"It called me a 'perpetually tardy disaster' and I've never been on time since." - Chronically Late Person</p>
+              <p className="mb-3">Get reminders that don&apos;t sugarcoat how late you are or how unprepared you&apos;ll be.</p>
+              <p className="text-sm italic">&quot;It called me a &apos;perpetually tardy disaster&apos; and I&apos;ve never been on time since.&quot; - Chronically Late Person</p>
             </div>
             
             <div className="brutalist-card">
               <Zap className="h-10 w-10 mb-4" />
               <h3 className="heading-sm mb-3">Multi-Calendar Syncing</h3>
               <p className="mb-3">Connect all your Google Calendars so you can disappoint people across multiple platforms simultaneously.</p>
-              <p className="text-sm italic">"Now everyone knows I'm avoiding them equally!" - Professional Hermit</p>
+              <p className="text-sm italic">&quot;Now everyone knows I&apos;m avoiding them equally!&quot; - Professional Hermit</p>
             </div>
           </div>
         </section>
@@ -96,7 +96,7 @@ export default async function Home() {
             <Link href="/login" className="brutalist-button">
               Start Your Free Trial*
             </Link>
-            <p className="text-xs mt-4 italic">*Free as in "we'll judge you for free, forever"</p>
+            <p className="text-xs mt-4 italic">*Free as in &quot;we&apos;ll judge you for free, forever&quot;</p>
           </div>
         </section>
         
@@ -118,7 +118,7 @@ export default async function Home() {
     return "Have you considered therapy for your meeting addiction?";
   }
   
-  return "You've achieved mediocre calendar management. Congrats?";
+  return "You&apos;ve achieved mediocre calendar management. Congrats?";
 }`}
                     </pre>
                   </div>
@@ -140,7 +140,7 @@ export default async function Home() {
                         <div className="text-xs">9:00 - 10:00 AM</div>
                       </div>
                       <div className="text-xs italic mt-1 text-red-600">
-                        AI NOTE: This could've been an email.
+                        AI NOTE: This could&apos;ve been an email.
                       </div>
                     </div>
                     <div className="calendar-event bg-white">
@@ -157,7 +157,7 @@ export default async function Home() {
                 <div className="w-full md:w-1/2">
                   <h3 className="heading-sm mb-3">2. Receive Brutal Insights</h3>
                   <p>
-                    Our AI analyzes your meetings and adds snarky comments directly to your events. It's like having a personal assistant who secretly hates you.
+                    Our AI analyzes your meetings and adds snarky comments directly to your events. It&apos;s like having a personal assistant who secretly hates you.
                   </p>
                 </div>
               </div>
@@ -169,14 +169,14 @@ export default async function Home() {
                       <input type="checkbox" className="mt-1" />
                       <div>
                         <p className="font-bold">Prepare Q4 Report</p>
-                        <p className="text-xs">Extracted from meeting "Q4 Planning"</p>
-                        <p className="text-xs italic text-red-600 mt-1">AI NOTE: You'll probably procrastinate on this until the day before.</p>
+                        <p className="text-xs">Extracted from meeting &quot;Q4 Planning&quot;</p>
+                        <p className="text-xs italic text-red-600 mt-1">AI NOTE: You&apos;ll probably procrastinate on this until the day before.</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="w-full md:w-1/2">
-                  <h3 className="heading-sm mb-3">3. Task Extraction & Management</h3>
+                  <h3 className="heading-sm mb-3">3. Task Extraction &amp; Management</h3>
                   <p>
                     QuickCal automatically extracts action items from your meetings and adds pessimistic predictions about your likelihood of completing them.
                   </p>
@@ -192,22 +192,22 @@ export default async function Home() {
             <div className="space-y-6">
               <div className="brutalist-box">
                 <h3 className="heading-sm mb-2">Is my calendar data secure?</h3>
-                <p>As secure as your life choices. But yes, we use industry-standard encryption and definitely don't sell your data to calendar enthusiasts on the dark web.</p>
+                <p>As secure as your life choices. But yes, we use industry-standard encryption and definitely don&apos;t sell your data to calendar enthusiasts on the dark web.</p>
               </div>
               
               <div className="brutalist-box">
                 <h3 className="heading-sm mb-2">Can I turn off the sarcastic AI?</h3>
-                <p>You could, but then what's the point? You might as well go back to your boring regular calendar app that doesn't judge you.</p>
+                <p>You could, but then what&apos;s the point? You might as well go back to your boring regular calendar app that doesn&apos;t judge you.</p>
               </div>
               
               <div className="brutalist-box">
                 <h3 className="heading-sm mb-2">Does QuickCal work with other calendar platforms?</h3>
-                <p>Currently we only support Google Calendar because, let's be honest, who uses anything else? We might add support for Outlook if enough people beg.</p>
+                <p>Currently we only support Google Calendar because, let&apos;s be honest, who uses anything else? We might add support for Outlook if enough people beg.</p>
               </div>
               
               <div className="brutalist-box">
                 <h3 className="heading-sm mb-2">Is QuickCal really free?</h3>
-                <p>Yes, it's free. We make money by selling your calendar data to time travelers from the future. (Just kidding. Or are we?)</p>
+                <p>Yes, it&apos;s free. We make money by selling your calendar data to time travelers from the future. (Just kidding. Or are we?)</p>
               </div>
             </div>
           </div>
@@ -234,7 +234,7 @@ export default async function Home() {
               <Link href="/contact" className="hover:underline">Contact</Link>
             </div>
             <p className="mt-4 text-sm text-gray-500">
-              QuickCal is not responsible for hurt feelings, missed meetings, or existential crises resulting from our AI's brutal honesty.
+              QuickCal is not responsible for hurt feelings, missed meetings, or existential crises resulting from our AI&apos;s brutal honesty.
             </p>
           </div>
         </div>
