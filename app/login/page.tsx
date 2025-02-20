@@ -40,7 +40,7 @@ export default function LoginPage() {
       
       <footer className="border-t-2 border-black py-4">
         <div className="container mx-auto px-4 text-center text-sm">
-          <p>QuickCal © 2025 • The calendar that thinks it's smarter than you</p>
+          <p>QuickCal © 2025 • The calendar that thinks it&apos;s smarter than you</p>
         </div>
       </footer>
     </div>

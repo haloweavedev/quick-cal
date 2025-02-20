@@ -10,28 +10,31 @@ interface AddAccountFormProps {
   isPrimary?: boolean;
 }
 
-export default function AddAccountForm({ userId, isPrimary = false }: AddAccountFormProps) {
+export default function AddAccountForm({
+  userId,
+  isPrimary = false,
+}: AddAccountFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [accountLabel, setAccountLabel] = useState("");
-  
-  const defaultPlaceholder = isPrimary 
-    ? "e.g., Primary Calendar, Work Calendar" 
+
+  const defaultPlaceholder = isPrimary
+    ? "e.g., Primary Calendar, Work Calendar"
     : "e.g., Personal, Work, Secret Life";
-  
+
   const buttonText = isPrimary
     ? "Connect Primary Calendar"
     : "Connect Google Calendar";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (!accountLabel || accountLabel.trim() === '') {
+
+    if (!accountLabel || accountLabel.trim() === "") {
       toast.error("Please enter a label for this calendar");
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     try {
       if (isPrimary) {
         // For primary accounts, use NextAuth flow
@@ -41,17 +44,22 @@ export default function AddAccountForm({ userId, isPrimary = false }: AddAccount
         // For secondary accounts, use direct window.location approach
         console.log("Connecting secondary calendar with label:", accountLabel);
         const encodedLabel = encodeURIComponent(accountLabel);
-        
+
         // Directly navigate to our custom connect endpoint
         window.location.href = `/api/calendars/secondary/connect?label=${encodedLabel}`;
       }
-    } catch (error: any) {
-      console.error("Failed to connect calendar:", error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Failed to connect calendar:", error);
+        toast.error(`Failed to connect calendar: ${error.message}`);
+      } else {
+        console.error("Failed to connect calendar: unknown error", error);
+        toast.error("Failed to connect calendar (unknown error).");
+      }
       setIsLoading(false);
-      toast.error("Failed to connect calendar. Please try again.");
     }
   };
-  
+
   return (
     <div className="space-y-4">
       <form onSubmit={handleSubmit}>
@@ -75,13 +83,13 @@ export default function AddAccountForm({ userId, isPrimary = false }: AddAccount
             {isPrimary && " This will be your primary calendar."}
           </p>
         </div>
-        
+
         <div className="pt-4">
           <button
             type="submit"
             disabled={isLoading}
             className={`brutalist-button w-full flex items-center justify-center gap-3 ${
-              isPrimary ? 'brutalist-purple' : ''
+              isPrimary ? "brutalist-purple" : ""
             }`}
           >
             {isLoading ? (
@@ -112,11 +120,12 @@ export default function AddAccountForm({ userId, isPrimary = false }: AddAccount
           </button>
         </div>
       </form>
-      
+
       <div className="pt-4 text-center">
         <p className="text-sm italic">
           Note: We&apos;ll need access to read and sync your events.
-          {isPrimary && " As your primary calendar, this account will be used for AI features and insights."}
+          {isPrimary &&
+            " As your primary calendar, this account will be used for AI features and insights."}
         </p>
       </div>
     </div>

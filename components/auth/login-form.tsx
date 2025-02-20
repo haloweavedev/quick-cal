@@ -6,23 +6,14 @@ import { signInWithGoogle } from "@/actions/auth";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-  
-  const handleGoogleSignIn = async () => {
-    try {
-      setIsLoading(true);
-      await signInWithGoogle();
-    } catch (error) {
-      console.error("Login failed:", error);
-      setIsLoading(false);
-    }
-  };
-  
+
   return (
     <div className="space-y-4">
       <form action={signInWithGoogle}>
         <button
           type="submit"
           disabled={isLoading}
+          onClick={() => setIsLoading(true)}
           className="brutalist-button w-full flex items-center justify-center gap-3 relative"
         >
           {isLoading ? (
@@ -52,27 +43,29 @@ export default function LoginForm() {
           )}
         </button>
       </form>
-      
+
       <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t-2 border-black"></span>
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="bg-white px-3 text-black">Or try our demo account</span>
+          <span className="bg-white px-3 text-black">
+            Or try our demo account
+          </span>
         </div>
       </div>
-      
+
       <button
         onClick={() => alert("Demo functionality coming soon!")}
         className="brutalist-button-small w-full"
       >
         Continue with Demo Account
       </button>
-      
+
       <div className="text-center mt-6">
         <p className="text-sm">
-          <span className="brutalist-highlight">Note:</span> We only support Google Calendar for now.
-          More options coming when we feel like it.
+          <span className="brutalist-highlight">Note:</span> We only support
+          Google Calendar for now. More options coming when we feel like it.
         </p>
       </div>
     </div>

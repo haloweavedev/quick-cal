@@ -1,10 +1,13 @@
 import { db } from "./db";
 import { CalendarAccount, Meeting } from "@prisma/client";
-import { addDays, startOfDay, endOfDay, startOfWeek, endOfWeek, parseISO, format } from "date-fns";
-
-type MeetingWithCalendarAccount = Meeting & {
-  calendarAccount: CalendarAccount;
-};
+import {
+  addDays,
+  startOfDay,
+  endOfDay,
+  startOfWeek,
+  endOfWeek,
+  format,
+} from "date-fns";
 
 /**
  * Get dashboard statistics for a user
@@ -16,12 +19,12 @@ export async function getDashboardStats(userId: string) {
   const startOfToday = startOfDay(now);
   const endOfToday = endOfDay(now);
   const nextWeekEnd = endOfDay(addDays(now, 7));
-  
+
   // Get accounts count
   const accountsCount = await db.calendarAccount.count({
     where: { userId },
   });
-  
+
   // Get upcoming meetings (next 7 days)
   const upcomingMeetings = await db.meeting.findMany({
     where: {
@@ -32,14 +35,14 @@ export async function getDashboardStats(userId: string) {
       },
     },
     orderBy: {
-      startTime: 'asc',
+      startTime: "asc",
     },
     include: {
       calendarAccount: true,
     },
     take: 5, // Limit to 5 upcoming meetings
   });
-  
+
   // Get today's meetings
   const todayMeetings = await db.meeting.findMany({
     where: {
@@ -50,17 +53,17 @@ export async function getDashboardStats(userId: string) {
       },
     },
     orderBy: {
-      startTime: 'asc',
+      startTime: "asc",
     },
     include: {
       calendarAccount: true,
     },
   });
-  
+
   // Calculate meeting hours this week
   const weekStart = startOfWeek(now, { weekStartsOn: 1 }); // Week starts on Monday
   const weekEnd = endOfWeek(now, { weekStartsOn: 1 });
-  
+
   const weekMeetings = await db.meeting.findMany({
     where: {
       userId,
@@ -70,7 +73,7 @@ export async function getDashboardStats(userId: string) {
       },
     },
   });
-  
+
   let meetingHoursThisWeek = 0;
   for (const meeting of weekMeetings) {
     // Skip all-day events from hour calculation or use a flat rate (e.g., 1 hour)
@@ -82,17 +85,17 @@ export async function getDashboardStats(userId: string) {
       meetingHoursThisWeek += durationHours;
     }
   }
-  
+
   // Get pending tasks count (if we add tasks in the future)
   const pendingTasksCount = await db.task.count({
     where: {
       userId,
       status: {
-        not: 'done',
+        not: "done",
       },
     },
   });
-  
+
   return {
     accountsCount,
     upcomingMeetingsCount: upcomingMeetings.length,
@@ -113,34 +116,38 @@ export async function getCalendarAccountsWithStatus(userId: string) {
   const accounts = await db.calendarAccount.findMany({
     where: { userId },
     orderBy: [
-      { isPrimary: 'desc' }, // Primary accounts first
-      { createdAt: 'asc' }   // Then by creation date
+      { isPrimary: "desc" }, // Primary accounts first
+      { createdAt: "asc" }, // Then by creation date
     ],
   });
-  
+
   if (accounts.length > 0) {
-    console.log(`[DASHBOARD-DATA] Found ${accounts.length} accounts. Primary status:`, 
-      accounts.map(a => ({ id: a.id, email: a.email, isPrimary: a.isPrimary })));
+    console.log(
+      `[DASHBOARD-DATA] Found ${accounts.length} accounts. Primary status:`,
+      accounts.map((a) => ({ id: a.id, email: a.email, isPrimary: a.isPrimary }))
+    );
   } else {
     console.log(`[DASHBOARD-DATA] No accounts found for user ${userId}`);
   }
-  
+
   // Enhance with additional status information
-  return Promise.all(accounts.map(async (account) => {
-    const meetingsCount = await db.meeting.count({
-      where: { calendarAccountId: account.id },
-    });
-    
-    const syncStatus = getSyncStatus(account);
-    
-    const result = {
-      ...account,
-      meetingsCount,
-      syncStatus,
-    };
-    
-    return result;
-  }));
+  return Promise.all(
+    accounts.map(async (account) => {
+      const meetingsCount = await db.meeting.count({
+        where: { calendarAccountId: account.id },
+      });
+
+      const syncStatus = getSyncStatus(account);
+
+      const result = {
+        ...account,
+        meetingsCount,
+        syncStatus,
+      };
+
+      return result;
+    })
+  );
 }
 
 /**
@@ -151,29 +158,30 @@ export async function getCalendarAccountsWithStatus(userId: string) {
 function getSyncStatus(account: CalendarAccount) {
   if (!account.lastSynced) {
     return {
-      status: 'never',
-      label: 'Never synced',
+      status: "never",
+      label: "Never synced",
       needsSync: true,
     };
   }
-  
-  const hoursSinceSync = (Date.now() - account.lastSynced.getTime()) / (1000 * 60 * 60);
-  
+
+  const hoursSinceSync =
+    (Date.now() - account.lastSynced.getTime()) / (1000 * 60 * 60);
+
   if (hoursSinceSync < 1) {
     return {
-      status: 'recent',
-      label: 'Recently synced',
+      status: "recent",
+      label: "Recently synced",
       needsSync: false,
     };
   } else if (hoursSinceSync < 24) {
     return {
-      status: 'today',
+      status: "today",
       label: `Synced ${Math.round(hoursSinceSync)} hours ago`,
       needsSync: false,
     };
   } else {
     return {
-      status: 'outdated',
+      status: "outdated",
       label: `Last synced ${Math.floor(hoursSinceSync / 24)} days ago`,
       needsSync: true,
     };
@@ -187,11 +195,11 @@ function getSyncStatus(account: CalendarAccount) {
  */
 export function formatMeetingTime(meeting: Meeting) {
   if (meeting.allDay) {
-    return 'All day';
+    return "All day";
   }
-  
-  const startTime = format(meeting.startTime, 'h:mm a');
-  const endTime = format(meeting.endTime, 'h:mm a');
+
+  const startTime = format(meeting.startTime, "h:mm a");
+  const endTime = format(meeting.endTime, "h:mm a");
   return `${startTime} - ${endTime}`;
 }
 
@@ -223,7 +231,7 @@ export async function getCalendarMonthEvents(userId: string, year: number, month
       },
     },
     include: {
-      calendarAccount: true,
+      calendarAccount: true,  // Include the calendar account info
     },
     orderBy: {
       startTime: 'asc',

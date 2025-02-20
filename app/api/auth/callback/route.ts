@@ -1,19 +1,28 @@
-// app/api/auth/callback/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { GoogleCalendarService } from "@/lib/google-calendar";
-import { getCalendarAccountCount, isLikelyWorkspaceEmail } from "@/lib/account-utils";
+import {
+  getCalendarAccountCount,
+  isLikelyWorkspaceEmail,
+  getRandomColor,
+} from "@/lib/account-utils";
+import type { Session } from "next-auth";
+
+interface SessionWithTokens extends Session {
+  accessToken?: string;
+  refreshToken?: string;
+  accessTokenExpires?: number;
+}
 
 export async function GET(request: NextRequest) {
   try {
     // Ensure the user is authenticated
-    const session = await auth();
+    const session = (await auth()) as SessionWithTokens;
     if (!session?.user) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
-    
+
     // Read query parameters
     const searchParams = request.nextUrl.searchParams;
     const userId = searchParams.get("userId");
@@ -25,11 +34,9 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Retrieve tokens from the session (populated via your NextAuth jwt/session callbacks)
-    const token = session as any;
-    const accessToken = token?.accessToken;
-    const refreshToken = token?.refreshToken;
-    const expiresAt = token?.accessTokenExpires;
+    const accessToken = session.accessToken;
+    const refreshToken = session.refreshToken;
+    const expiresAt = session.accessTokenExpires;
     if (!accessToken) {
       console.error("No access token found in session");
       return NextResponse.redirect(
@@ -38,9 +45,12 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch the user's Google profile to get email, etc.
-    const profileRes = await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    const profileRes = await fetch(
+      "https://www.googleapis.com/oauth2/v2/userinfo",
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
     if (!profileRes.ok) {
       console.error("Failed to fetch user info from Google");
       return NextResponse.redirect(
@@ -53,13 +63,20 @@ export async function GET(request: NextRequest) {
     const accountCount = await getCalendarAccountCount(userId);
     let label = labelParam;
     if (!label) {
-      label = accountCount === 0
-        ? (isLikelyWorkspaceEmail(profile.email) ? "Work Calendar" : "Primary Calendar")
-        : (isLikelyWorkspaceEmail(profile.email) ? "Work Calendar" : "Personal Calendar");
+      label =
+        accountCount === 0
+          ? isLikelyWorkspaceEmail(profile.email)
+            ? "Work Calendar"
+            : "Primary Calendar"
+          : isLikelyWorkspaceEmail(profile.email)
+          ? "Work Calendar"
+          : "Personal Calendar";
     }
 
     // (Optional) Fetch calendar metadata (timezone, etc.)
-    const calendarMetadata = await GoogleCalendarService.getCalendarMetadata(accessToken);
+    const calendarMetadata = await GoogleCalendarService.getCalendarMetadata(
+      accessToken
+    );
 
     // Upsert the CalendarAccount record
     const calendarAccount = await db.calendarAccount.upsert({
@@ -101,26 +118,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(
       new URL("/dashboard/accounts?success=account_connected", request.url)
     );
-
   } catch (error) {
     console.error("Error in OAuth callback:", error);
     return NextResponse.redirect(
       new URL("/dashboard/accounts?error=unknown", request.url)
     );
   }
-}
-
-// Helper to generate a random color for the calendar
-function getRandomColor(): string {
-  const colors = [
-    "#4285F4", // Google Blue
-    "#EA4335", // Google Red
-    "#FBBC05", // Google Yellow
-    "#34A853", // Google Green
-    "#8B5CF6", // Purple
-    "#EC4899", // Pink
-    "#F59E0B", // Amber
-    "#10B981", // Emerald
-  ];
-  return colors[Math.floor(Math.random() * colors.length)];
 }

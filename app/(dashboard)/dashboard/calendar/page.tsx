@@ -5,10 +5,16 @@ import { CalendarDays, Plus, Filter, ArrowLeft, ArrowRight } from "lucide-react"
 import { format, getMonth, getYear } from "date-fns";
 import { getCalendarMonthEvents, formatMeetingTime } from "@/lib/dashboard-data";
 import { getCalendarAccountCount } from "@/lib/account-utils";
+import { Meeting, CalendarAccount } from "@prisma/client";
 
 export const metadata = {
   title: "Calendar",
   description: "View and manage your events - if you have any",
+};
+
+// Define the type for events with calendar account included
+type MeetingWithCalendarAccount = Meeting & {
+  calendarAccount: CalendarAccount;
 };
 
 export default async function CalendarPage({
@@ -136,13 +142,13 @@ export default async function CalendarPage({
                       </span>
                       
                       <div className="mt-1 space-y-1 max-h-[90px] overflow-y-auto">
-                        {day.events.map((event) => (
+                        {day.events.map((event: MeetingWithCalendarAccount) => (
                           <div 
                             key={event.id}
                             className="text-xs p-1 truncate rounded"
                             style={{
-                              backgroundColor: `${event.calendarAccount.color}30`,
-                              borderLeft: `3px solid ${event.calendarAccount.color}`
+                              backgroundColor: `${event.calendarAccount?.color || '#000000'}30`,
+                              borderLeft: `3px solid ${event.calendarAccount?.color || '#000000'}`
                             }}
                             title={`${event.title} - ${formatMeetingTime(event)}`}
                           >
