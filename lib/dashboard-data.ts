@@ -238,20 +238,25 @@ export async function getCalendarMonthEvents(userId: string, year: number, month
     },
   });
   
+  // Define a proper type for the events by day
+  type MeetingWithCalendarAccount = Meeting & {
+    calendarAccount: CalendarAccount;
+  };
+  
   // Organize events by day
-  const eventsByDay: { [day: number]: any[] } = {};
+  const eventsByDay: Record<number, MeetingWithCalendarAccount[]> = {};
   events.forEach(event => {
     const day = event.startTime.getDate();
     if (!eventsByDay[day]) {
       eventsByDay[day] = [];
     }
-    eventsByDay[day].push(event);
+    eventsByDay[day].push(event as MeetingWithCalendarAccount);
   });
   
   // Organize calendar into grid (6 weeks x 7 days)
   const grid = [];
   let dayCounter = 1;
-  let daysInPreviousMonth = new Date(year, month - 1, 0).getDate();
+  const daysInPreviousMonth = new Date(year, month - 1, 0).getDate();
   
   // Calculate how many days from previous month to show
   const daysFromPrevMonth = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Adjust for Monday start
