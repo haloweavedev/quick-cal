@@ -48,7 +48,7 @@ Coming soon(ish)! Let our soon-to-be-implemented meeting bot eavesdrop on your c
 
 ### 1️⃣ Clone This Repo  
 ```bash
-git clone https://github.com/YourUsername/quickcal.git
+git clone https://github.com/haloweavedev/quick-cal.git
 cd quickcal
 ```
 
